@@ -4,16 +4,29 @@ const priorityEl = document.getElementById("modal-priority");
 const issueDetailsModal = document.getElementById("issue_details_modal");
 let allIssues = [];
 
+const setActiveBtn = (activeId) => {
+  // reset all btn
+  document.getElementById("allBtn").className = "btn btn-outline";
+  document.getElementById("openBtn").className = "btn btn-outline";
+  document.getElementById("closeBtn").className = "btn btn-outline";
+
+ 
+  document.getElementById(activeId).className = "btn btn-primary";
+};
+
 document.getElementById("allBtn").addEventListener("click", () => {
+  setActiveBtn("allBtn");
   displayIssue(allIssues);
 });
 
 document.getElementById("openBtn").addEventListener("click", () => {
+  setActiveBtn("openBtn");
   const filtered = allIssues.filter((issue) => issue.status === "open");
   displayIssue(filtered);
 });
 
 document.getElementById("closeBtn").addEventListener("click", () => {
+  setActiveBtn("closeBtn");
   const filtered = allIssues.filter((issue) => issue.status === "closed");
   displayIssue(filtered);
 });
@@ -57,7 +70,7 @@ const displayIssue = (issues) => {
     } else {
       statusImg = "./assets/Closed- Status .png";
       statusText = "Closed";
-      statusColor = "text-[#E5534B]";
+      statusColor = "text-[#A855F7]";
     }
 
     // Priority condition
@@ -119,23 +132,6 @@ const displayIssue = (issues) => {
   });
 };
 
-/* template */
-const openTreeModal = async (treeId) => {
-  const res = await fetch(
-    `https://openapi.programming-hero.com/api/plant/${treeId}`,
-  );
-  const data = await res.json();
-  const plantDetails = data.plants;
-
-  modalTitle.textContent = plantDetails.name;
-  modalImage.src = plantDetails.image;
-  modalCategory.textContent = plantDetails.category;
-  modalDescription.textContent = plantDetails.description; // ✅ was missing
-  modalPrice.textContent = plantDetails.price;
-
-  treeDetailsModal.showModal(); // ✅ now works with correct id
-};
-
 
 const openModal = async (issueID) => {
   // console.log(issueID);
@@ -153,7 +149,7 @@ const openModal = async (issueID) => {
     statusEl.innerHTML = `<img src="./assets/Open-Status.png" class="w-4 h-4"> Open`;
   } else {
     statusEl.className =
-      "text-sm font-bold px-2 py-1 rounded-full flex items-center gap-1 border text-[#E5534B]";
+      "text-sm font-bold px-2 py-1 rounded-full flex items-center gap-1 border text-[#A855F7]";
     statusEl.innerHTML = `<img src="./assets/Closed-Status.png" class="w-4 h-4"> Closed`;
   }
 
