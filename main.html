@@ -55,9 +55,9 @@
 <!-- all tab -->
 <section class="container mx-auto  mt-10">
     <div class="px-5 py-6"> 
-        <button id="allBtn" class="btn btn-outline ">All</button>
-        <button id="openBtn" class="btn btn-outline ">Open</button>
-        <button id="closeBtn" class="btn btn-outline ">Close</button>
+        <button id="allBtn" class="btn btn-primary">All</button>
+        <button id="openBtn" class="btn btn-outline">Open</button>
+        <button id="closeBtn" class="btn btn-outline">Close</button>
     </div>
 </section>
 
@@ -71,7 +71,7 @@
                 <img src="./assets/Aperture.png" alt="Project Icon" class="w-6 h-6">
             </div>
             <div>
-                <h2 class="text-xl font-bold text-gray-900 leading-tight">50 Issues</h2>
+                <h2 id="issue-count" class="text-xl font-bold text-gray-900 leading-tight">0 Issues</h2>
                 <p class="text-sm text-[#64748B]">Track and manage your project issues</p>
             </div>
         </div>
@@ -91,14 +91,14 @@
     <!-- card dynamically add here -->
     <div id="card-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 px-5 py-6">
 
-        <div
+        <!-- <div
             class="card bg-white shadow-sm border border-gray-200 p-5 rounded-xl hover:shadow-md transition-all flex flex-col justify-between">
             <div>
-                <div class="flex items-center justify-between mb-3">
-                    <span class="bg-[#00A96E] text-white text-[10px] px-2 py-1 rounded-full flex items-center gap-1">
-                        <i class="fa-solid fa-circle text-[6px]"></i> Open
+                <div class="flex items-center justify-between mb-3 ">
+                    <span class="text-[#00A96E] bg-white text-sm font-bold px-2 py-1 rounded-full flex items-center gap-1 border p-2">
+                        <img src="./assets/Open-Status.png" alt=""> Open
                     </span>
-                    <span class="border border-red-500 text-red-500 text-[10px] font-bold px-2 py-1 rounded uppercase">
+                    <span class="border border-red-500 text-red-500 text-sm font-bold px-2 py-1 rounded uppercase">
                         High
                     </span>
                 </div>
@@ -113,25 +113,70 @@
                 </p>
 
                 <div class="flex flex-wrap gap-2 mb-4">
-                    <span class="border border-orange-400 text-orange-600 text-[10px] px-2 py-0.5 rounded-md">bug</span>
-                    <span class="border border-orange-400 text-orange-600 text-[10px] px-2 py-0.5 rounded-md">help
+                        <span class="border bg-[#FECACA] text-black text-sm px-2 py-0.5 rounded-md font-medium"><i class="fa-solid fa-bug"></i> bug</span>
+                    
+                    <span class="border bg-[#FDE68A] text-black text-sm px-2 py-0.5 rounded-md font-medium"><i class="fa-regular fa-life-ring"></i> help
                         wanted</span>
                 </div>
             </div>
 
             <div
                 class="flex items-center justify-between text-[11px] text-gray-400 border-t border-gray-100 pt-3 mt-auto">
-                <div class="flex gap-3">
-                    <span class="flex items-center gap-1"><i class="fa-solid fa-user"></i> john_doe</span>
-                    <span class="flex items-center gap-1"><i class="fa-solid fa-user-check"></i> jane_smith</span>
+                <div class="flex flex-col gap-2">
+                    <p class="flex items-center gap-1"><span>#1 by</span> john_doe</p>
+                    <p class="flex items-center gap-1"> jane_smith</p>
                 </div>
-                <span class="flex items-center gap-1"><i class="fa-regular fa-calendar"></i> Jan 15</span>
+                 <div class="flex flex-col gap-2">
+                    <span class="flex items-center gap-1"> Jan 15</span>
+                    <span class="flex items-center gap-1">Jan 15</span>
+                 </div>
             </div>
-        </div>
+        </div> -->
 
     </div>
 
 </section>
+
+
+<!-- modal -->
+<!-- Open the modal using ID.showModal() method -->
+<!-- <button class="btn" onclick="my_modal_1.showModal()">open modal</button> -->
+<!-- modal -->
+<dialog id="issue_details_modal" class="modal">
+    <div class="modal-box w-11/12 max-w-2xl">
+
+
+        <div class="flex items-center justify-between mb-4">
+            <span id="modal-status"
+                class="text-sm font-bold px-2 py-1 rounded-full flex items-center gap-1 border"></span>
+            <span id="modal-priority" class="border text-sm font-bold px-2 py-1 rounded uppercase"></span>
+        </div>
+
+        <h3 id="modal-title" class="text-lg font-bold text-gray-800 mb-2"></h3>
+
+        <p id="modal-description" class="text-sm text-gray-500 mb-4"></p>
+
+        <div id="modal-labels" class="flex flex-wrap gap-2 mb-4"></div>
+
+        <div class="text-sm text-gray-400 border-t border-gray-100 pt-4 flex items-center justify-between">
+            <div class="flex flex-col gap-1">
+                <p><span class="text-gray-600 font-medium">Author:</span> <span id="modal-author"></span></p>
+                <p><span class="text-gray-600 font-medium">Assignee:</span> <span id="modal-assignee"></span></p>
+            </div>
+            <div class="flex flex-col gap-1 text-right">
+                <p><span class="text-gray-600 font-medium">Created:</span> <span id="modal-created"></span></p>
+                <p><span class="text-gray-600 font-medium">Updated:</span> <span id="modal-updated"></span></p>
+            </div>
+        </div>
+
+
+        <div class="modal-action">
+            <form method="dialog">
+                <button class="btn">Close</button>
+            </form>
+        </div>
+    </div>
+</dialog>
 
 <script src="./script.js"></script>
 
