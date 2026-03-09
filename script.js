@@ -7,24 +7,40 @@ const searchBtn = document.getElementById("searchBtn");
 const searchInput = document.getElementById("searchInput");
 let allIssues = [];
 let currentIssues = [];
+let activeStatus = "all";
 
-const handleSearch = () => {
-  const query = searchInput.value.trim().toLowerCase();
+searchInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") handleSearch();
+});
+
+const handleSearch = async () => {
+  const query = searchInput.value.trim();
 
   if (query === "") {
     displayIssue(currentIssues); 
     return;
   }
 
-  const filtered = currentIssues.filter(
-    (issue) =>
-      issue.title.toLowerCase().includes(query) ||
-      issue.description.toLowerCase().includes(query) ||
-      issue.author.toLowerCase().includes(query) ||
-      issue.labels.some((label) => label.toLowerCase().includes(query)),
-  );
+  loadingSpinner.classList.remove("hidden");
+  cardContainer.classList.add("hidden");
 
-  displayIssue(filtered);
+  const res = await fetch(
+    `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${query}`,
+  );
+  const data = await res.json()
+  let results = data.data;
+
+  if(activeStatus !== "all") {
+    results = results.filter((issue) => issue.status === activeStatus);
+  }
+
+  
+  loadingSpinner.classList.add("hidden");
+  cardContainer.classList.remove("hidden");
+
+
+  displayIssue(results);
+
 };
 
 // Loading
@@ -48,12 +64,14 @@ const setActiveBtn = (activeId) => {
 
 document.getElementById("allBtn").addEventListener("click", () => {
   setActiveBtn("allBtn");
+  activeStatus = "all";
   searchInput.value = "";
   displayIssue(allIssues);
 });
 
 document.getElementById("openBtn").addEventListener("click", () => {
   setActiveBtn("openBtn");
+  activeStatus = "open";
   searchInput.value = "";
   const filtered = allIssues.filter((issue) => issue.status === "open");
   displayIssue(filtered);
@@ -61,6 +79,7 @@ document.getElementById("openBtn").addEventListener("click", () => {
 
 document.getElementById("closeBtn").addEventListener("click", () => {
   setActiveBtn("closeBtn");
+  activeStatus = "closed";
   searchInput.value = "";
   const filtered = allIssues.filter((issue) => issue.status === "closed");
   displayIssue(filtered);
