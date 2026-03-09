@@ -1,0 +1,7 @@
+#card-container {
+  grid-auto-rows: 1fr;
+}
+
+#card-container > div {
+  height: 100%;
+}
