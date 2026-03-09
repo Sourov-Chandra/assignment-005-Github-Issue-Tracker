@@ -223,6 +223,16 @@ const openModal = async (issueID) => {
   }
   priorityEl.textContent = issueDetails.priority;
 
+  document.getElementById("modal-labels").innerHTML = issueDetails.labels
+    .map(
+      (label) => `
+    <span class="border bg-[#FDE68A] text-black text-sm px-2 py-0.5 rounded-md font-medium">${label}</span>
+`,
+    )
+    .join("");
+
+  issueDetailsModal.showModal();
+
   // Rest of fields
   document.getElementById("modal-title").textContent = issueDetails.title;
   document.getElementById("modal-description").textContent =
