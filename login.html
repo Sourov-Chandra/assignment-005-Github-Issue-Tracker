@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github_Issue_Tracker</title>
+
+    <!-- daisyUI and tailwind cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+</head>
+<body class="min-h-screen flex items-center justify-center"  bg-[#F8FAFC]>
+
+    <!-- Card -->
+    <div class="w-full max-w-sm rounded-2xl shadow-lg p-10" bg-[#FFFFFF]>
+
+        <div class="flex flex-col items-center mb-8">
+            <img src="./assets/github-logo.png" alt="github-logo">
+            <h2 class="text-xl font-semibold text-slate-800">GitHub Issues Tracker</h2>
+            <p class="text-sm text-slate-400 mt-1">Sign in to manage your issues</p>
+        </div>
+
+        <!-- Error message -->
+        <div id="errorMsg"
+            class="hidden mb-4 text-sm text-red-500 bg-red-50 border border-red-200 rounded-lg px-4 py-2 text-center">
+             Incorrect username or password.
+        </div>
+
+        <!-- Username -->
+        <div class="mb-4">
+            <label class="block text-base font-medium text-slate-600 mb-1">Username</label>
+            <input type="text" id="username" placeholder="Enter username"
+                class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-700 placeholder-slate-300 outline-none focus:border-slate-400 focus:ring-2 focus:ring-slate-100 transition" />
+                <p class="text-[#4A00FF] text-sm">Default: admin</p>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-6 relative">
+            <label class="block text-base font-medium text-slate-600 mb-1">Password</label>
+            <input type="password" id="password" placeholder="Enter password"
+                class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-700 placeholder-slate-300 outline-none focus:border-slate-400 focus:ring-2 focus:ring-slate-100 transition" />
+           <p class="text-[#4A00FF] text-sm">Default: admin123</p>
+        </div>
+
+        <!-- Sign In Button -->
+        <button onclick="handleLogin()"
+            class="w-full bg-[#4A00FF] hover:bg-[#9473e9] text-white font-semibold text-base py-3 rounded-xl transition">
+            Sign In
+        </button>
+
+        <div class="text-center text-xs text-slate-400 mt-7">
+            <p class="text-[#64748B]">Demo Credentials:</p>
+
+            <div class="bg-[#F8FAFC] text-center flex flex-col justify-center items-center mt-2 p-5">
+                <p>
+                    <strong class="font-semibold text-black ">Username: </strong><span class="text-black/90">admin</span>
+                </p>
+                <p>
+                    <strong class="font-semibold text-black ">Password: </strong><span class="text-black/90">admin123</span>
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="./script.js"></script>
+
+</body>
+</html>
