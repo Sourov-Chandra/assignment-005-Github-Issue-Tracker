@@ -14,8 +14,42 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
+
+       <!-- fontawesome cdn -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+            integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 <body>
-    <h2>main</h2>
+<header>
+    <div class="navbar bg-base-100 shadow-sm px-4">
+        <div class="flex-1 flex items-center gap-2">
+            <a class="btn btn-ghost p-1">
+                <img src="./assets/github-logo.png" alt="logo" class="w-8 h-8 object-contain" />
+            </a>
+            <h1 class="text-sm md:text-xl font-semibold ">GitHub Issues Tracker</h1>
+        </div>
+
+        <div class="flex items-center gap-2">
+            
+            <div class="relative">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 z-10">
+                    <i class="fa-brands fa-sistrix"></i>
+                </span>
+                <input type="text" placeholder="Search issues..."
+                    class="input input-bordered input-sm md:input-md w-28 sm:w-40 md:w-64 pl-8" />
+            </div>
+        
+            <button class="btn btn-primary btn-sm md:btn-md hover:btn-outline">
+                <span class="hidden sm:block">Search</span>
+                <span class="block sm:hidden text-base">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+            </button>
+        
+        </div>
+    </div>
+</header>
 </body>
 </html>
