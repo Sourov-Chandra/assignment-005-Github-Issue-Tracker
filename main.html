@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Github_Issue_Tracker</title>
+    <link rel="stylesheet" href="style.css">
 
     <!-- daisyUI and tailwind cdn -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
@@ -37,11 +38,11 @@
                 <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 z-10">
                     <i class="fa-brands fa-sistrix"></i>
                 </span>
-                <input type="text" placeholder="Search issues..."
+                <input id="searchInput" type="text" placeholder="Search issues..."
                     class="input input-bordered input-sm md:input-md w-28 sm:w-40 md:w-64 pl-8" />
             </div>
         
-            <button class="btn btn-primary btn-sm md:btn-md hover:btn-outline">
+            <button onclick="handleSearch()" id="searchBtn" class="btn btn-primary btn-sm md:btn-md hover:btn-outline">
                 <span class="hidden sm:block">Search</span>
                 <span class="block sm:hidden text-base">
                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -89,7 +90,7 @@
     </div>
 
     <!-- card dynamically add here -->
-    <div id="card-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 px-5 py-6">
+    <div id="card-container" class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6 px-5 py-6 auto-rows-fr">
 
         <!-- <div
             class="card bg-white shadow-sm border border-gray-200 p-5 rounded-xl hover:shadow-md transition-all flex flex-col justify-between">
@@ -133,6 +134,12 @@
             </div>
         </div> -->
 
+    </div>
+
+
+    <!-- loading spinner -->
+    <div id="loadingSpinner" class="h-[60vh] flex hidden justify-center items-center">
+        <span class="loading loading-dots loading-xl"></span>
     </div>
 
 </section>

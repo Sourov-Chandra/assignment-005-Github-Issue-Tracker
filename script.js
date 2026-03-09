@@ -2,7 +2,39 @@ const cardContainer = document.getElementById("card-container");
 const statusEl = document.getElementById("modal-status");
 const priorityEl = document.getElementById("modal-priority");
 const issueDetailsModal = document.getElementById("issue_details_modal");
+const loadingSpinner = document.getElementById("loadingSpinner");
+const searchBtn = document.getElementById("searchBtn");
+const searchInput = document.getElementById("searchInput");
 let allIssues = [];
+let currentIssues = [];
+
+const handleSearch = () => {
+  const query = searchInput.value.trim().toLowerCase();
+
+  if (query === "") {
+    displayIssue(currentIssues); 
+    return;
+  }
+
+  const filtered = currentIssues.filter(
+    (issue) =>
+      issue.title.toLowerCase().includes(query) ||
+      issue.description.toLowerCase().includes(query) ||
+      issue.author.toLowerCase().includes(query) ||
+      issue.labels.some((label) => label.toLowerCase().includes(query)),
+  );
+
+  displayIssue(filtered);
+};
+
+// Loading
+function showLoading() {
+  loadingSpinner.classList.remove("hidden");
+  treesContainer.innerHTML = "";
+}
+function hideLoading() {
+  loadingSpinner.classList.add("hidden");
+}
 
 const setActiveBtn = (activeId) => {
   // reset all btn
@@ -16,17 +48,20 @@ const setActiveBtn = (activeId) => {
 
 document.getElementById("allBtn").addEventListener("click", () => {
   setActiveBtn("allBtn");
+  searchInput.value = "";
   displayIssue(allIssues);
 });
 
 document.getElementById("openBtn").addEventListener("click", () => {
   setActiveBtn("openBtn");
+  searchInput.value = "";
   const filtered = allIssues.filter((issue) => issue.status === "open");
   displayIssue(filtered);
 });
 
 document.getElementById("closeBtn").addEventListener("click", () => {
   setActiveBtn("closeBtn");
+  searchInput.value = "";
   const filtered = allIssues.filter((issue) => issue.status === "closed");
   displayIssue(filtered);
 });
@@ -45,20 +80,32 @@ function handleLogin() {
 }
 
 const loadIssue = async () => {
+  loadingSpinner.classList.remove("hidden");
+  cardContainer.classList.add("hidden"); 
   const res = await fetch(
     "https://phi-lab-server.vercel.app/api/v1/lab/issues",
   );
   const data = await res.json();
   allIssues = data.data;
+
+  loadingSpinner.classList.add("hidden");
+  cardContainer.classList.remove("hidden"); 
   displayIssue(allIssues);
 };
 
 const displayIssue = (issues) => {
+    currentIssues = issues;
     cardContainer.innerHTML = ""; 
     document.getElementById("issue-count").textContent =
       `${issues.length} Issues`;
+
   issues.forEach((issue) => {
     const card = document.createElement("div");
+
+    const topBorder =
+      issue.status === "open"
+        ? "border-t-4 border-t-[#00A96E]"
+        : "border-t-4 border-t-[#A855F7]";
 
     // Status condition
     let statusImg, statusText, statusColor;
@@ -83,9 +130,9 @@ const displayIssue = (issues) => {
     } else {
       priorityColor = "border-green-500 text-green-500";
     }
-
+    card.className = "h-full"; 
     card.innerHTML = `
-      <div  onclick="openModal(${issue.id})"  class="card bg-white shadow-sm border border-gray-200 p-5 rounded-xl hover:shadow-md transition-all flex flex-col justify-between">
+      <div  onclick="openModal(${issue.id})"h-full class="card bg-white shadow-sm border border-gray-200 p-5 rounded-xl hover:shadow-md transition-all flex flex-col justify-between ${topBorder}">
           <div>
               <div class="flex items-center justify-between mb-3">
                   <span class="bg-white text-sm font-bold px-2 py-1 rounded-full flex items-center gap-1 border ${statusColor}">
@@ -96,7 +143,7 @@ const displayIssue = (issues) => {
                   </span>
               </div>
 
-              <h2 class="text-base font-semibold text-gray-800 mb-2 line-clamp-2">
+              <h2 class="text-base font-semibold text-gray-800 mb-2 line-clamp-2 min-h-[48px]">
                   ${issue.title}
               </h2>
 
@@ -135,6 +182,17 @@ const displayIssue = (issues) => {
 
 const openModal = async (issueID) => {
   // console.log(issueID);
+
+   document.getElementById("modal-title").textContent = "Loading...";
+   document.getElementById("modal-description").textContent = "";
+   document.getElementById("modal-author").textContent = "";
+   document.getElementById("modal-assignee").textContent = "";
+   document.getElementById("modal-created").textContent = "";
+   document.getElementById("modal-updated").textContent = "";
+   document.getElementById("modal-labels").innerHTML = "";
+   issueDetailsModal.showModal(); 
+
+
   const res = await fetch(
     `https://phi-lab-server.vercel.app/api/v1/lab/issue/${issueID}`,
   );
